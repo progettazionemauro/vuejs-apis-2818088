@@ -22,6 +22,7 @@ export default {
   data() {
     return {
       currentSong: null,
+      audioElement: null,
       songs: [
         {
           id: "1",
@@ -177,8 +178,31 @@ export default {
     };
   },
   methods: {
-    handlePlay: function(payload) {
+     handlePlay: function(payload) {
+      if (this.audioElement == null) {
+        this.audioElement = new Audio(payload.music_url);
+        this.audioElement.play();
+      } else {
+        if (payload == this.currentSong) {
+          if (this.audioElement.paused) {
+            this.audioElement.play();
+          } else {
+            this.audioElement.pause();
+          }
+        } else {
+          this.audioElement.src = payload.music_url;
+          this.audioElement.play();
+        }
+      }
       this.currentSong = payload;
+      this.audioElement.addEventListener("ended", () => {
+        this.currentSong = null;
+        this.audioElement = null;
+      });
+    },
+    handleDelete: function(payload) {
+      const updatedArray = _.without(this.songs, payload);
+      this.songs = updatedArray;
     }
   },
   components: {
