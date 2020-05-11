@@ -219,7 +219,9 @@ $list-group-border-radius: 0;
 $list-group-hover-bg: #444;
 $list-group-action-color: #bbb;
 
-@import "node_modules/bootstrap/scss/bootstrap";
+//@import "node_modules/bootstrap/scss/bootstrap";
+@import '../node_modules/bootstrap/scss/_functions';
+@import '../node_modules/bootstrap/scss/_variables';
 
 //currentsong
 .currentsong-background {
